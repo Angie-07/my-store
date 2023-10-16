@@ -1,0 +1,208 @@
+<!--FORMULARIO-->
+<h1 class="title-form">My account</h1>
+<form (ngSubmit)="onRegister()" #myForm="ngForm" class="formulario">
+  <div class="input-group">
+    <label for="name">Nombre:</label>
+    <input
+      type="text"
+      name="name"
+      id="name"
+      required
+      #input5="ngModel"
+      [(ngModel)]="register.name"
+      placeholder="Angie Cabanillas"
+    />
+    <p [class.nombreValido]="input5.valid">
+      Primero debes completar este campo
+    </p>
+  </div>
+  <div class="input-group">
+    <label for="email">Email:</label>
+    <input
+      type="email"
+      name="email"
+      id="email"
+      required
+      #input6="ngModel"
+      [(ngModel)]="register.email"
+      placeholder="angie@gmail.com"
+    />
+    <p [class.nombreValido]="input6.valid">
+      Primero debes completar este campo
+    </p>
+  </div>
+  <div class="input-group">
+    <label for="password">Contraseña:</label>
+    <input
+      type="password"
+      name="password"
+      id="password"
+      required
+      #input7="ngModel"
+      [(ngModel)]="register.password"
+      placeholder="12345678"
+    />
+    <p [class.nombreValido]="input7.valid">
+      Primero debes completar este campo
+    </p>
+  </div>
+  <button
+    [style.background-color]="myForm.valid ? 'green' : 'red'"
+    [disabled]="myForm.invalid"
+    type="submit"
+  >
+    Registrarse
+  </button>
+</form>
+
+<!--NgClass and NgStyle-->
+<h1 class="title">NgClass and NgStyle</h1>
+<input type="text" required #input4="ngModel" [(ngModel)]="person.name" />
+<hr
+  class="line-error"
+  [ngClass]="{
+    valido: input4.valid,
+    invalido: input4.invalid
+  }"
+/>
+<p class="message-error" [class.cualquier-nombre]="input4.invalid">
+  Este campo es requerido
+</p>
+
+<div>
+  <div>
+    <input type="number" [(ngModel)]="box.width" />
+    <input type="number" [(ngModel)]="box.height" />
+    <input type="color" [(ngModel)]="box.background" />
+  </div>
+  <div>
+    <div
+      [ngStyle]="{
+        'width.px': box.width,
+        'height.px': box.height,
+        'background-color': box.background
+      }"
+    ></div>
+  </div>
+</div>
+
+<!--Class[] and style-->
+<!--Dinamismo en class y style-->
+<h1 class="title">Class and style</h1>
+<!--colocando identificador a input-->
+<input type="text" required #input2="ngModel" [(ngModel)]="person.name" />
+<!--creando clase con el class-->
+<p class="message-error" [class.cualquier-nombre]="input2.invalid">
+  Este campo es requerido
+</p>
+
+<label for="">Nombre</label>
+<input type="text" required #input3="ngModel" [(ngModel)]="person.name" />
+<p [style.font-style]="input3.invalid ? 'italic' : 'normal'">
+  texto texto texto
+</p>
+
+<div class="dinamic-grid">
+  <div>
+    <input type="text" [(ngModel)]="widthImg" />
+  </div>
+  <div>
+    <img [style.width.%]="widthImg" [src]="person.avatar" alt="image" />
+  </div>
+</div>
+
+<hr />
+<!--ngSwitch-->
+<h1 class="title">ngSwitch</h1>
+<input type="text" required [(ngModel)]="person.name" />
+<div [ngSwitch]="person.name">
+  <p *ngSwitchCase="'angie'">La persona es Angie</p>
+  <p *ngSwitchCase="'alessio'">La persona es Alessio</p>
+  <p *ngSwitchCase="'rosa'">La persona es Rosa</p>
+  <p *ngSwitchDefault="">No hay personas</p>
+</div>
+
+<br />
+<!--ng objects-->
+<h1 class="title">ng object</h1>
+<div class="product-grid">
+  <div *ngFor="let product of products">
+    <h2>{{ product.name }}</h2>
+    <p>{{ product.price }}</p>
+    <img class="product-grid-image" [src]="product.image" alt="image" />
+  </div>
+</div>
+<br />
+<!--ngFor-->
+<h1 class="title">*ngFor</h1>
+<input type="text" required [(ngModel)]="newName" />
+<button (click)="addName()">Add name</button>
+<ul>
+  <li *ngIf="names.length === 0">No hay nombres</li>
+  <li *ngFor="let name of names; index as i">
+    {{ i }} {{ name }}
+    <button (click)="deleteName(i)">Delete</button>
+  </li>
+</ul>
+<!--ngIf-->
+<h1 class="title">*ngIf</h1>
+<input
+  type="text"
+  name=""
+  id=""
+  [value]="person.name"
+  (keyup)="copiarNombre($event)"
+/>
+<p *ngIf="person.name === 'nicolas'">Soy Nicolas</p>
+<p *ngIf="person.name === 'juan' && person.age === 21; else nombre_template">
+  Soy juan de 18 años
+</p>
+<ng-template #nombre_template> Soy otra persona </ng-template>
+
+<hr />
+
+<!--NG MODEL-->
+<h1>ngModel</h1>
+<!--vamos a fusionar el property binding y el event binding-->
+<input type="text" name="" id="" [(ngModel)]="person.name" />
+
+<hr />
+<!--OTROS EVENTOS-->
+<h1 class="title">Otros eventos</h1>
+<div class="box" (scroll)="conteoScroll($event)">
+  <p>
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Vero nihil
+    consequatur sequi facilis deserunt, quibusdam blanditiis unde exercitationem
+    assumenda laboriosam neque ipsam omnis, dolore hic, asperiores dolores
+    praesentium! Ea, reiciendis?
+  </p>
+</div>
+<p>nombre{{ person.name }}</p>
+<hr />
+<input
+  type="text"
+  name=""
+  id=""
+  [value]="person.name"
+  (keyup)="copiarNombre($event)"
+/>
+
+<!--EVENT BINDING-->
+<h1 class="title">Eventos</h1>
+<button (click)="cambiarBoton()">Cambiar botón</button>
+<p>Edad {{ person.age }}</p>
+<button (click)="incrementarEdad()">Age++</button>
+<hr />
+<!--PROPERTY BINDING-->
+<h1 class="title">Property Binding</h1>
+<button [disabled]="btnDisabled">Enviar</button>
+<input type="text" name="" id="" [value]="person.name" />
+<progress max="100" [value]="person.age"></progress>
+<img width="100px" [src]="person.avatar" alt="image" />
+<hr />
+<!--STRING INTERPOLATION-->
+<h1 class="title">String Interpolation</h1>
+<h4>Hola soy {{ name }} y tengo {{ age }}</h4>
+<img width="100px" src="{{ img }}" alt="image" />
+<h2>Hola {{ "angie".repeat(2) }}</h2>
+<hr />
